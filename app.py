@@ -313,8 +313,12 @@ with c_side:
     </div>
     """, unsafe_allow_html=True)
     if not growth_df.is_empty() and df_meta is not None:
+        # Cast ccode to Int64 to ensure join compatibility
+        g_df = growth_df.with_columns(pl.col("ccode").cast(pl.Int64))
+        m_df = df_meta.select(["ccode", "display_name"]).with_columns(pl.col("ccode").cast(pl.Int64))
+        
         # Join with metadata to get display_name
-        enriched_growth = growth_df.join(df_meta.select(["ccode", "display_name"]), on="ccode")
+        enriched_growth = g_df.join(m_df, on="ccode")
         
         st.dataframe(
             enriched_growth.to_pandas().drop("ccode", axis=1), 
