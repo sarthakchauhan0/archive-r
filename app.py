@@ -314,11 +314,39 @@ with c_main:
 
 with c_side:
     st.subheader("Insights")
-    st.markdown("""
+    
+    # Generate dynamic architectural insight
+    if not filtered_df.is_empty():
+        top_religions = filtered_df.group_by("religion_name").agg(pl.col("percentage").mean()).sort("percentage", descending=True).head(2)
+        rel1 = top_religions.row(0)[0]
+        rel2 = top_religions.row(1)[0] if top_religions.height > 1 else None
+        
+        color_labels = {
+            "Christian": "Sage",
+            "Muslim": "Steel Blue",
+            "Hindu": "Dusty Rose",
+            "Buddhist": "Muted Gold",
+            "Unaffiliated": "Slate Gray",
+            "Others": "Warm Charcoal"
+        }
+        
+        label1 = color_labels.get(rel1, "Primary Tone")
+        label2 = color_labels.get(rel2, "Secondary Tone") if rel2 else ""
+        
+        region_text = f"across {', '.join(regions)}" if len(regions) < 3 else "across the selected territories"
+        
+        if rel2:
+            insight_text = f"Observe how the {label1} ({rel1}) and {label2} ({rel2}) interact {region_text}."
+        else:
+            insight_text = f"Observe the dominance of the {label1} ({rel1}) {region_text}."
+    else:
+        insight_text = "Select regions to begin the architectural analysis."
+
+    st.markdown(f"""
     <div style='font-size: 0.9rem; color: #888; border-left: 2px solid #444; padding-left: 15px;'>
     The architectural transition of belief systems often follows economic industrialization.
     <br><br>
-    Observe how the desaturated Sage (Christianity) and Steel Blue (Islam) interact in the Global South.
+    {insight_text}
     </div>
     """, unsafe_allow_html=True)
     if not growth_df.is_empty() and df_meta is not None:
