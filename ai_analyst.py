@@ -21,7 +21,7 @@ def _get_client():
         _client = genai.Client(api_key=_api_key)
     return _client
 
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-1.5-flash"
 
 def generate_comparison_report(country_a: str, country_b: str, stats_a: dict, stats_b: dict) -> str:
     """Generates an editorial-style comparative analysis between two countries."""
