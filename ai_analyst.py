@@ -1,5 +1,5 @@
 import os
-import google.generativeai as genai
+from google import genai
 import polars as pl
 
 # Native .env parser to avoid external dependencies
@@ -18,24 +18,24 @@ def _get_client():
     if _client is None:
         if not _api_key:
             return None
-        _client = genai.GenerativeModel
-        genai.configure(api_key=_api_key)
+        # Using the newer google-genai SDK as specified in requirements.txt
+        _client = genai.Client(api_key=_api_key)
     return _client
 
 # Priority list for models (Fallback chain)
-MODELS = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"]
+# Standardizing on stable models available in the newer SDK
+MODELS = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]
 
 def _generate_with_fallback(prompt: str) -> str:
     """Attempts generation with a priority list of models if errors occur."""
-    _get_client() # Ensure config is run
-    if not _api_key:
+    client = _get_client()
+    if client is None:
         return "_API key not configured. Add GEMINI_API_KEY to your .env file._"
     
     last_error = None
     for model_id in MODELS:
         try:
-            model = genai.GenerativeModel(model_id)
-            response = model.generate_content(prompt)
+            response = client.models.generate_content(model=model_id, contents=prompt)
             return response.text
         except Exception as e:
             last_error = e
