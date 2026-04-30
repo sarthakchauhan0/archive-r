@@ -208,6 +208,9 @@ c_main, c_side = st.columns([3, 1])
 
 with c_main:
     if compare_mode:
+        # Define country names for UI and AI
+        country_a, country_b = disp_a, disp_b
+        
         st.subheader("COMPARATIVE OVERLAYS")
         # Line Chart for Comparison
         compare_data = filtered_df.to_pandas()
