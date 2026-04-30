@@ -146,6 +146,9 @@ with st.sidebar:
     
     year_range = st.slider("Timeline", 1816, 2026, (1816, 2026))
 
+    st.markdown("---")
+    st.caption("⚠️ **Data Disclaimer**: Global religious demographics for years post-2010 may be incomplete or modeled, as national census updates often take 10+ years to fully aggregate and verify.")
+
 # 4. Filter Logic
 filtered_df = data_manager.get_filtered_data(df_master, regions, selected_countries, year_range)
 metrics_df, growth_df = data_manager.calculate_growth_metrics(filtered_df)
