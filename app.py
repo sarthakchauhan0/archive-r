@@ -166,7 +166,7 @@ with st.sidebar:
                                           key='selected_displays')
         selected_countries = [display_to_code[d] for d in selected_displays]
     
-    year_range = st.slider("Timeline", 1816, 2026, (1816, 2026))
+    year_range = st.slider("Timeline", 1816, 2026, (1926, 2026))
 
     st.markdown("---")
     st.caption("⚠️ **Data Disclaimer**: Global religious demographics for years post-2010 may be incomplete or modeled, as national census updates often take 10+ years to fully aggregate and verify.")
@@ -387,11 +387,6 @@ if map_data.empty:
 map_data['decade'] = (map_data['year'] // 10) * 10
 map_decade = map_data.groupby(['iso_alpha', 'decade', 'religion_name'])['percentage'].mean().reset_index()
 map_decade = map_decade.sort_values('decade')
-
-year_range = st.sidebar.slider("Analysis Window", 
-                                  min_value=1816, 
-                                  max_value=2026, 
-                                  value=(1926, 2026))
 
 fig_map = px.choropleth(map_decade, 
                         locations="iso_alpha", 
