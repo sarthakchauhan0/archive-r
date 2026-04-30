@@ -24,7 +24,7 @@ def _get_client():
     return _client
 
 # Priority list for Gemini models
-GEMINI_MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"]
+GEMINI_MODELS = ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
 
 def _generate_with_fallback(prompt: str) -> str:
     """Attempts generation with Gemini models first, then falls back to Groq."""
