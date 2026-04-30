@@ -4,6 +4,7 @@ import ai_analyst
 import plotly.express as px
 import plotly.graph_objects as go
 import polars as pl
+import os
 
 # 1. Page Configuration & Architectural CSS
 st.set_page_config(page_title="Religious Evolution: Portfolio Edition", layout="wide")
