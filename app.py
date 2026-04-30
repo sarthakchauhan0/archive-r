@@ -80,6 +80,18 @@ if df_master is None:
     st.error("Dataset not found.")
     st.stop()
 
+# 2.5 Load Metadata for UI Display Names
+@st.cache_data
+def load_metadata():
+    if os.path.exists("country_metadata.csv"):
+        return pl.read_csv("country_metadata.csv")
+    return None
+
+df_meta = load_metadata()
+# Fallback if no display_name yet: use country_name
+if df_meta is not None and "display_name" not in df_meta.columns:
+    df_meta = df_meta.with_columns(pl.col("country_name").alias("display_name"))
+
 # 3. Sidebar & Navigation
 with st.sidebar:
     st.markdown("# ARCHIVE-R")
@@ -93,26 +105,43 @@ with st.sidebar:
         st.session_state.selected_regions = df_master["region"].unique().to_list()
     
     regions = st.multiselect("Regions", 
-                            options=df_master["region"].unique().to_list(), 
+                            options=sorted(df_master["region"].unique().to_list()), 
                             key='selected_regions')
     
-    all_countries = df_master.filter(pl.col("region").is_in(regions))["country_name"].unique().to_list()
-    
+    # Filter countries based on region and map to display names
+    if df_meta is not None:
+        filtered_meta = df_meta.filter(pl.col("region").is_in(regions))
+        display_to_code = dict(zip(filtered_meta["display_name"], filtered_meta["country_name"]))
+        code_to_display = dict(zip(filtered_meta["country_name"], filtered_meta["display_name"]))
+        available_display_names = sorted(filtered_meta["display_name"].to_list())
+    else:
+        # Fallback
+        available_codes = sorted(df_master.filter(pl.col("region").is_in(regions))["country_name"].unique().to_list())
+        display_to_code = {c: c for c in available_codes}
+        code_to_display = {c: c for c in available_codes}
+        available_display_names = available_codes
+
     if compare_mode:
         st.subheader("Select Comparison")
-        country_a = st.selectbox("Country A", options=all_countries, index=0)
-        country_b = st.selectbox("Country B", options=all_countries, index=1 if len(all_countries) > 1 else 0)
-        selected_countries = [country_a, country_b]
+        disp_a = st.selectbox("Country A", options=available_display_names, index=0)
+        disp_b = st.selectbox("Country B", options=available_display_names, index=1 if len(available_display_names) > 1 else 0)
+        selected_countries = [display_to_code[disp_a], display_to_code[disp_b]]
     else:
-        if 'selected_countries' not in st.session_state:
-            st.session_state.selected_countries = all_countries[:3]
+        # For multiselect, we need to handle the conversion
+        current_codes = df_master.filter(pl.col("region").is_in(regions))["country_name"].unique().to_list()
+        default_codes = [c for c in current_codes if c in ["USA", "IND", "GBR", "FRA", "DEU", "CAN", "AFG"]][:3]
+        if not default_codes:
+            default_codes = current_codes[:3]
             
-        # Ensure selected countries are still in the valid options (post-region filter)
-        valid_selection = [c for c in st.session_state.selected_countries if c in all_countries]
-        
-        selected_countries = st.multiselect("Focus Countries", 
-                                            options=all_countries, 
-                                            key='selected_countries')
+        default_displays = [code_to_display[c] for c in default_codes if c in code_to_display]
+
+        if 'selected_displays' not in st.session_state:
+            st.session_state.selected_displays = default_displays
+            
+        selected_displays = st.multiselect("Focus Countries", 
+                                          options=available_display_names,
+                                          key='selected_displays')
+        selected_countries = [display_to_code[d] for d in selected_displays]
     
     year_range = st.slider("Timeline", 1816, 2026, (1816, 2026))
 
@@ -262,7 +291,7 @@ with c_side:
             column_config={
                 "religion_name": "Religion",
                 "total_growth": st.column_config.NumberColumn(
-                    "Growth (pp)",
+                    "Growth (%)",
                     help="Total percentage point change over the selected period",
                     format="%.1f%%"
                 )

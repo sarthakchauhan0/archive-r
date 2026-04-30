@@ -1,201 +1,201 @@
-ccode,country_name,iso_alpha,region
-2.0,USA,USA,America
-20.0,CAN,CAN,America
-31.0,BHM,BHS,America
-40.0,CUB,CUB,America
-41.0,HAI,HTI,America
-42.0,DOM,DOM,America
-51.0,JAM,JAM,America
-52.0,TRI,TTO,America
-53.0,BAR,BRB,America
-54.0,DMA,DMA,America
-55.0,GRN,GRD,America
-56.0,SLU,LCA,America
-57.0,SVG,VCT,America
-58.0,AAB,ATG,America
-60.0,SKN,KNA,America
-70.0,MEX,MEX,America
-80.0,BLZ,BLZ,America
-90.0,GUA,GTM,America
-91.0,HON,HND,America
-92.0,SAL,SLV,America
-93.0,NIC,NIC,America
-94.0,COS,CRI,America
-95.0,PAN,PAN,America
-100.0,COL,COL,America
-101.0,VEN,VEN,America
-110.0,GUY,GUY,America
-115.0,SUR,SUR,America
-130.0,ECU,ECU,America
-135.0,PER,PER,America
-140.0,BRA,BRA,America
-145.0,BOL,BOL,America
-150.0,PAR,PRY,America
-155.0,CHL,CHL,America
-160.0,ARG,ARG,America
-165.0,URU,URY,America
-200.0,UKG,GBR,Europe
-205.0,IRE,IRL,Europe
-210.0,NTH,NLD,Europe
-211.0,BEL,BEL,Europe
-212.0,LUX,LUX,Europe
-220.0,FRN,FRA,Europe
-221.0,MNC,MCO,Europe
-223.0,LIE,LIE,Europe
-225.0,SWZ,CHE,Europe
-230.0,SPN,ESP,Europe
-232.0,AND,AND,Europe
-235.0,POR,PRT,Europe
-255.0,GMY,not found,Others
-260.0,GFR,DEU,Europe
-265.0,GDR,not found,Others
-290.0,POL,POL,Europe
-305.0,AUS,AUT,Europe
-310.0,HUN,HUN,Europe
-315.0,CZE,CZE,Europe
-316.0,CZR,not found,Others
-317.0,SLO,SVK,Europe
-325.0,ITA,ITA,Europe
-331.0,SNM,SMR,Europe
-338.0,MLT,MLT,Europe
-339.0,ALB,ALB,Europe
-341.0,MNG,MNE,Europe
-343.0,MAC,MKD,Europe
-344.0,CRO,HRV,Europe
-345.0,YUG,not found,Others
-346.0,BOS,BIH,Europe
-347.0,KOS,XKX,Europe
-349.0,SLV,SVN,Europe
-350.0,GRC,GRC,Europe
-352.0,CYP,CYP,Asia
-355.0,BUL,BGR,Europe
-359.0,MLD,MDA,Europe
-360.0,ROM,ROU,Europe
-365.0,RUS,RUS,Europe
-366.0,EST,EST,Europe
-367.0,LAT,LVA,Europe
-368.0,LIT,LTU,Europe
-369.0,UKR,UKR,Europe
-370.0,BLR,BLR,Europe
-371.0,ARM,ARM,Asia
-372.0,GRG,GEO,Asia
-373.0,AZE,AZE,Asia
-375.0,FIN,FIN,Europe
-380.0,SWD,SWE,Europe
-385.0,NOR,NOR,Europe
-390.0,DEN,DNK,Europe
-395.0,ICE,ISL,Europe
-402.0,CAP,CPV,Africa
-403.0,STP,STP,Africa
-404.0,GNB,GNB,Africa
-411.0,EQG,GNQ,Africa
-420.0,GAM,GMB,Africa
-432.0,MLI,MLI,Africa
-433.0,SEN,SEN,Africa
-434.0,BEN,BEN,Africa
-435.0,MAA,MRT,Africa
-436.0,NIR,NER,Africa
-437.0,CDI,CIV,Africa
-438.0,GUI,GIN,Africa
-439.0,BFO,BFA,Africa
-450.0,LBR,LBR,Africa
-451.0,SIE,SLE,Africa
-452.0,GHA,GHA,Africa
-461.0,TOG,TGO,Africa
-471.0,CAO,CMR,Africa
-475.0,NIG,NGA,Africa
-481.0,GAB,GAB,Africa
-482.0,CEN,CAF,Africa
-483.0,CHA,TCD,Africa
-484.0,CON,COG,Africa
-490.0,DRC,COD,Africa
-500.0,UGA,UGA,Africa
-501.0,KEN,KEN,Africa
-510.0,TAZ,TZA,Africa
-516.0,BUI,BDI,Africa
-517.0,RWA,RWA,Africa
-520.0,SOM,SOM,Africa
-522.0,DJI,DJI,Africa
-530.0,ETH,ETH,Africa
-531.0,ERI,ERI,Africa
-540.0,ANG,AGO,Africa
-541.0,MZM,MOZ,Africa
-551.0,ZAM,ZMB,Africa
-552.0,ZIM,ZWE,Africa
-553.0,MAW,MWI,Africa
-560.0,SAF,ZAF,Africa
-565.0,NAM,NAM,Africa
-570.0,LES,LSO,Africa
-571.0,BOT,BWA,Africa
-572.0,SWA,SWZ,Africa
-580.0,MAG,MDG,Africa
-581.0,COM,COM,Africa
-590.0,MAS,MUS,Africa
-591.0,SEY,SYC,Africa
-600.0,MOR,MAR,Africa
-615.0,ALG,DZA,Africa
-616.0,TUN,TUN,Africa
-620.0,LIB,LBY,Africa
-625.0,SUD,SDN,Africa
-630.0,IRN,IRN,Asia
-640.0,TUR,TUR,Asia
-645.0,IRQ,IRQ,Asia
-651.0,EGY,EGY,Africa
-652.0,SYR,SYR,Asia
-660.0,LEB,LBN,Asia
-663.0,JOR,JOR,Asia
-666.0,ISR,ISR,Asia
-670.0,SAU,SAU,Asia
-678.0,YAR,not found,Others
-679.0,YEM,not found,Others
-680.0,YPR,YEM,Asia
-690.0,KUW,KWT,Asia
-692.0,BAH,BHR,Asia
-694.0,QAT,QAT,Asia
-696.0,UAE,ARE,Asia
-698.0,OMA,OMN,Asia
-700.0,AFG,AFG,Asia
-701.0,TKM,TKM,Asia
-702.0,TAJ,TJK,Asia
-703.0,KYR,KGZ,Asia
-704.0,UZB,UZB,Asia
-705.0,KZK,KAZ,Asia
-710.0,CHN,CHN,Asia
-712.0,MON,MNG,Asia
-713.0,TAW,TWN,Asia
-731.0,PRK,PRK,Asia
-732.0,ROK,KOR,Asia
-740.0,JPN,JPN,Asia
-750.0,IND,IND,Asia
-760.0,BHU,BTN,Asia
-770.0,PAK,PAK,Asia
-771.0,BNG,BGD,Asia
-775.0,MYA,MMR,Asia
-780.0,SRI,LKA,Asia
-781.0,MAD,MDV,Asia
-790.0,NEP,NPL,Asia
-800.0,THI,THA,Asia
-811.0,CAM,KHM,Asia
-812.0,LAO,LAO,Asia
-816.0,DRV,not found,Others
-817.0,RVN,VNM,Asia
-820.0,MAL,MYS,Asia
-830.0,SIN,SGP,Asia
-835.0,BRU,BRN,Asia
-840.0,PHI,PHL,Asia
-850.0,INS,IDN,Asia
-860.0,ETM,TLS,Asia
-900.0,AUL,AUS,Oceania
-910.0,PNG,PNG,Oceania
-920.0,NEW,NZL,Oceania
-935.0,VAN,VUT,Oceania
-940.0,SOL,SLB,Oceania
-946.0,KIR,not found,Others
-947.0,TUV,not found,Others
-950.0,FIJ,FJI,Oceania
-955.0,TON,not found,Others
-970.0,NAU,KIR,Oceania
-983.0,MSI,MHL,Oceania
-986.0,PAL,PLW,Oceania
-987.0,FSM,FSM,Oceania
-990.0,WSM,WSM,Oceania
+ccode,country_name,iso_alpha,region,full_name,display_name
+2.0,USA,USA,America,United States,United States (USA)
+20.0,CAN,CAN,America,Canada,Canada (CAN)
+31.0,BHM,BHS,America,Bahamas,Bahamas (BHS)
+40.0,CUB,CUB,America,Cuba,Cuba (CUB)
+41.0,HAI,HTI,America,Haiti,Haiti (HTI)
+42.0,DOM,DOM,America,Dominican Republic,Dominican Republic (DOM)
+51.0,JAM,JAM,America,Jamaica,Jamaica (JAM)
+52.0,TRI,TTO,America,Trinidad and Tobago,Trinidad and Tobago (TTO)
+53.0,BAR,BRB,America,Barbados,Barbados (BRB)
+54.0,DMA,DMA,America,Dominica,Dominica (DMA)
+55.0,GRN,GRD,America,Grenada,Grenada (GRD)
+56.0,SLU,LCA,America,St. Lucia,St. Lucia (LCA)
+57.0,SVG,VCT,America,St. Vincent and the Grenadines,St. Vincent and the Grenadines (VCT)
+58.0,AAB,ATG,America,Antigua and Barbuda,Antigua and Barbuda (ATG)
+60.0,SKN,KNA,America,St. Kitts and Nevis,St. Kitts and Nevis (KNA)
+70.0,MEX,MEX,America,Mexico,Mexico (MEX)
+80.0,BLZ,BLZ,America,Belize,Belize (BLZ)
+90.0,GUA,GTM,America,Guatemala,Guatemala (GTM)
+91.0,HON,HND,America,Honduras,Honduras (HND)
+92.0,SAL,SLV,America,El Salvador,El Salvador (SLV)
+93.0,NIC,NIC,America,Nicaragua,Nicaragua (NIC)
+94.0,COS,CRI,America,Costa Rica,Costa Rica (CRI)
+95.0,PAN,PAN,America,Panama,Panama (PAN)
+100.0,COL,COL,America,Colombia,Colombia (COL)
+101.0,VEN,VEN,America,Venezuela,Venezuela (VEN)
+110.0,GUY,GUY,America,Guyana,Guyana (GUY)
+115.0,SUR,SUR,America,Suriname,Suriname (SUR)
+130.0,ECU,ECU,America,Ecuador,Ecuador (ECU)
+135.0,PER,PER,America,Peru,Peru (PER)
+140.0,BRA,BRA,America,Brazil,Brazil (BRA)
+145.0,BOL,BOL,America,Bolivia,Bolivia (BOL)
+150.0,PAR,PRY,America,Paraguay,Paraguay (PRY)
+155.0,CHL,CHL,America,Chile,Chile (CHL)
+160.0,ARG,ARG,America,Argentina,Argentina (ARG)
+165.0,URU,URY,America,Uruguay,Uruguay (URY)
+200.0,UKG,GBR,Europe,United Kingdom,United Kingdom (GBR)
+205.0,IRE,IRL,Europe,Ireland,Ireland (IRL)
+210.0,NTH,NLD,Europe,Netherlands,Netherlands (NLD)
+211.0,BEL,BEL,Europe,Belgium,Belgium (BEL)
+212.0,LUX,LUX,Europe,Luxembourg,Luxembourg (LUX)
+220.0,FRN,FRA,Europe,France,France (FRA)
+221.0,MNC,MCO,Europe,Monaco,Monaco (MCO)
+223.0,LIE,LIE,Europe,Liechtenstein,Liechtenstein (LIE)
+225.0,SWZ,CHE,Europe,Switzerland,Switzerland (CHE)
+230.0,SPN,ESP,Europe,Spain,Spain (ESP)
+232.0,AND,AND,Europe,Andorra,Andorra (AND)
+235.0,POR,PRT,Europe,Portugal,Portugal (PRT)
+255.0,GMY,not found,Others,not found,not found (not found)
+260.0,GFR,DEU,Europe,Germany,Germany (DEU)
+265.0,GDR,not found,Others,not found,not found (not found)
+290.0,POL,POL,Europe,Poland,Poland (POL)
+305.0,AUS,AUT,Europe,Austria,Austria (AUT)
+310.0,HUN,HUN,Europe,Hungary,Hungary (HUN)
+315.0,CZE,CZE,Europe,Czechia,Czechia (CZE)
+316.0,CZR,not found,Others,not found,not found (not found)
+317.0,SLO,SVK,Europe,Slovakia,Slovakia (SVK)
+325.0,ITA,ITA,Europe,Italy,Italy (ITA)
+331.0,SNM,SMR,Europe,San Marino,San Marino (SMR)
+338.0,MLT,MLT,Europe,Malta,Malta (MLT)
+339.0,ALB,ALB,Europe,Albania,Albania (ALB)
+341.0,MNG,MNE,Europe,Montenegro,Montenegro (MNE)
+343.0,MAC,MKD,Europe,North Macedonia,North Macedonia (MKD)
+344.0,CRO,HRV,Europe,Croatia,Croatia (HRV)
+345.0,YUG,not found,Others,not found,not found (not found)
+346.0,BOS,BIH,Europe,Bosnia and Herzegovina,Bosnia and Herzegovina (BIH)
+347.0,KOS,XKX,Europe,Kosovo,Kosovo (XKX)
+349.0,SLV,SVN,Europe,Slovenia,Slovenia (SVN)
+350.0,GRC,GRC,Europe,Greece,Greece (GRC)
+352.0,CYP,CYP,Asia,Cyprus,Cyprus (CYP)
+355.0,BUL,BGR,Europe,Bulgaria,Bulgaria (BGR)
+359.0,MLD,MDA,Europe,Moldova,Moldova (MDA)
+360.0,ROM,ROU,Europe,Romania,Romania (ROU)
+365.0,RUS,RUS,Europe,Russia,Russia (RUS)
+366.0,EST,EST,Europe,Estonia,Estonia (EST)
+367.0,LAT,LVA,Europe,Latvia,Latvia (LVA)
+368.0,LIT,LTU,Europe,Lithuania,Lithuania (LTU)
+369.0,UKR,UKR,Europe,Ukraine,Ukraine (UKR)
+370.0,BLR,BLR,Europe,Belarus,Belarus (BLR)
+371.0,ARM,ARM,Asia,Armenia,Armenia (ARM)
+372.0,GRG,GEO,Asia,Georgia,Georgia (GEO)
+373.0,AZE,AZE,Asia,Azerbaijan,Azerbaijan (AZE)
+375.0,FIN,FIN,Europe,Finland,Finland (FIN)
+380.0,SWD,SWE,Europe,Sweden,Sweden (SWE)
+385.0,NOR,NOR,Europe,Norway,Norway (NOR)
+390.0,DEN,DNK,Europe,Denmark,Denmark (DNK)
+395.0,ICE,ISL,Europe,Iceland,Iceland (ISL)
+402.0,CAP,CPV,Africa,Cabo Verde,Cabo Verde (CPV)
+403.0,STP,STP,Africa,Sao Tome and Principe,Sao Tome and Principe (STP)
+404.0,GNB,GNB,Africa,Guinea-Bissau,Guinea-Bissau (GNB)
+411.0,EQG,GNQ,Africa,Equatorial Guinea,Equatorial Guinea (GNQ)
+420.0,GAM,GMB,Africa,Gambia,Gambia (GMB)
+432.0,MLI,MLI,Africa,Mali,Mali (MLI)
+433.0,SEN,SEN,Africa,Senegal,Senegal (SEN)
+434.0,BEN,BEN,Africa,Benin,Benin (BEN)
+435.0,MAA,MRT,Africa,Mauritania,Mauritania (MRT)
+436.0,NIR,NER,Africa,Niger,Niger (NER)
+437.0,CDI,CIV,Africa,Côte d'Ivoire,Côte d'Ivoire (CIV)
+438.0,GUI,GIN,Africa,Guinea,Guinea (GIN)
+439.0,BFO,BFA,Africa,Burkina Faso,Burkina Faso (BFA)
+450.0,LBR,LBR,Africa,Liberia,Liberia (LBR)
+451.0,SIE,SLE,Africa,Sierra Leone,Sierra Leone (SLE)
+452.0,GHA,GHA,Africa,Ghana,Ghana (GHA)
+461.0,TOG,TGO,Africa,Togo,Togo (TGO)
+471.0,CAO,CMR,Africa,Cameroon,Cameroon (CMR)
+475.0,NIG,NGA,Africa,Nigeria,Nigeria (NGA)
+481.0,GAB,GAB,Africa,Gabon,Gabon (GAB)
+482.0,CEN,CAF,Africa,Central African Republic,Central African Republic (CAF)
+483.0,CHA,TCD,Africa,Chad,Chad (TCD)
+484.0,CON,COG,Africa,Congo Republic,Congo Republic (COG)
+490.0,DRC,COD,Africa,DR Congo,DR Congo (COD)
+500.0,UGA,UGA,Africa,Uganda,Uganda (UGA)
+501.0,KEN,KEN,Africa,Kenya,Kenya (KEN)
+510.0,TAZ,TZA,Africa,Tanzania,Tanzania (TZA)
+516.0,BUI,BDI,Africa,Burundi,Burundi (BDI)
+517.0,RWA,RWA,Africa,Rwanda,Rwanda (RWA)
+520.0,SOM,SOM,Africa,Somalia,Somalia (SOM)
+522.0,DJI,DJI,Africa,Djibouti,Djibouti (DJI)
+530.0,ETH,ETH,Africa,Ethiopia,Ethiopia (ETH)
+531.0,ERI,ERI,Africa,Eritrea,Eritrea (ERI)
+540.0,ANG,AGO,Africa,Angola,Angola (AGO)
+541.0,MZM,MOZ,Africa,Mozambique,Mozambique (MOZ)
+551.0,ZAM,ZMB,Africa,Zambia,Zambia (ZMB)
+552.0,ZIM,ZWE,Africa,Zimbabwe,Zimbabwe (ZWE)
+553.0,MAW,MWI,Africa,Malawi,Malawi (MWI)
+560.0,SAF,ZAF,Africa,South Africa,South Africa (ZAF)
+565.0,NAM,NAM,Africa,Namibia,Namibia (NAM)
+570.0,LES,LSO,Africa,Lesotho,Lesotho (LSO)
+571.0,BOT,BWA,Africa,Botswana,Botswana (BWA)
+572.0,SWA,SWZ,Africa,Eswatini,Eswatini (SWZ)
+580.0,MAG,MDG,Africa,Madagascar,Madagascar (MDG)
+581.0,COM,COM,Africa,Comoros,Comoros (COM)
+590.0,MAS,MUS,Africa,Mauritius,Mauritius (MUS)
+591.0,SEY,SYC,Africa,Seychelles,Seychelles (SYC)
+600.0,MOR,MAR,Africa,Morocco,Morocco (MAR)
+615.0,ALG,DZA,Africa,Algeria,Algeria (DZA)
+616.0,TUN,TUN,Africa,Tunisia,Tunisia (TUN)
+620.0,LIB,LBY,Africa,Libya,Libya (LBY)
+625.0,SUD,SDN,Africa,Sudan,Sudan (SDN)
+630.0,IRN,IRN,Asia,Iran,Iran (IRN)
+640.0,TUR,TUR,Asia,Türkiye,Türkiye (TUR)
+645.0,IRQ,IRQ,Asia,Iraq,Iraq (IRQ)
+651.0,EGY,EGY,Africa,Egypt,Egypt (EGY)
+652.0,SYR,SYR,Asia,Syria,Syria (SYR)
+660.0,LEB,LBN,Asia,Lebanon,Lebanon (LBN)
+663.0,JOR,JOR,Asia,Jordan,Jordan (JOR)
+666.0,ISR,ISR,Asia,Israel,Israel (ISR)
+670.0,SAU,SAU,Asia,Saudi Arabia,Saudi Arabia (SAU)
+678.0,YAR,not found,Others,not found,not found (not found)
+679.0,YEM,not found,Others,not found,not found (not found)
+680.0,YPR,YEM,Asia,Yemen,Yemen (YEM)
+690.0,KUW,KWT,Asia,Kuwait,Kuwait (KWT)
+692.0,BAH,BHR,Asia,Bahrain,Bahrain (BHR)
+694.0,QAT,QAT,Asia,Qatar,Qatar (QAT)
+696.0,UAE,ARE,Asia,United Arab Emirates,United Arab Emirates (ARE)
+698.0,OMA,OMN,Asia,Oman,Oman (OMN)
+700.0,AFG,AFG,Asia,Afghanistan,Afghanistan (AFG)
+701.0,TKM,TKM,Asia,Turkmenistan,Turkmenistan (TKM)
+702.0,TAJ,TJK,Asia,Tajikistan,Tajikistan (TJK)
+703.0,KYR,KGZ,Asia,Kyrgyzstan,Kyrgyzstan (KGZ)
+704.0,UZB,UZB,Asia,Uzbekistan,Uzbekistan (UZB)
+705.0,KZK,KAZ,Asia,Kazakhstan,Kazakhstan (KAZ)
+710.0,CHN,CHN,Asia,China,China (CHN)
+712.0,MON,MNG,Asia,Mongolia,Mongolia (MNG)
+713.0,TAW,TWN,Asia,Taiwan,Taiwan (TWN)
+731.0,PRK,PRK,Asia,North Korea,North Korea (PRK)
+732.0,ROK,KOR,Asia,South Korea,South Korea (KOR)
+740.0,JPN,JPN,Asia,Japan,Japan (JPN)
+750.0,IND,IND,Asia,India,India (IND)
+760.0,BHU,BTN,Asia,Bhutan,Bhutan (BTN)
+770.0,PAK,PAK,Asia,Pakistan,Pakistan (PAK)
+771.0,BNG,BGD,Asia,Bangladesh,Bangladesh (BGD)
+775.0,MYA,MMR,Asia,Myanmar,Myanmar (MMR)
+780.0,SRI,LKA,Asia,Sri Lanka,Sri Lanka (LKA)
+781.0,MAD,MDV,Asia,Maldives,Maldives (MDV)
+790.0,NEP,NPL,Asia,Nepal,Nepal (NPL)
+800.0,THI,THA,Asia,Thailand,Thailand (THA)
+811.0,CAM,KHM,Asia,Cambodia,Cambodia (KHM)
+812.0,LAO,LAO,Asia,Laos,Laos (LAO)
+816.0,DRV,not found,Others,not found,not found (not found)
+817.0,RVN,VNM,Asia,Vietnam,Vietnam (VNM)
+820.0,MAL,MYS,Asia,Malaysia,Malaysia (MYS)
+830.0,SIN,SGP,Asia,Singapore,Singapore (SGP)
+835.0,BRU,BRN,Asia,Brunei Darussalam,Brunei Darussalam (BRN)
+840.0,PHI,PHL,Asia,Philippines,Philippines (PHL)
+850.0,INS,IDN,Asia,Indonesia,Indonesia (IDN)
+860.0,ETM,TLS,Asia,Timor-Leste,Timor-Leste (TLS)
+900.0,AUL,AUS,Oceania,Australia,Australia (AUS)
+910.0,PNG,PNG,Oceania,Papua New Guinea,Papua New Guinea (PNG)
+920.0,NEW,NZL,Oceania,New Zealand,New Zealand (NZL)
+935.0,VAN,VUT,Oceania,Vanuatu,Vanuatu (VUT)
+940.0,SOL,SLB,Oceania,Solomon Islands,Solomon Islands (SLB)
+946.0,KIR,not found,Others,not found,not found (not found)
+947.0,TUV,not found,Others,not found,not found (not found)
+950.0,FIJ,FJI,Oceania,Fiji,Fiji (FJI)
+955.0,TON,not found,Others,not found,not found (not found)
+970.0,NAU,KIR,Oceania,Kiribati,Kiribati (KIR)
+983.0,MSI,MHL,Oceania,Marshall Islands,Marshall Islands (MHL)
+986.0,PAL,PLW,Oceania,Palau,Palau (PLW)
+987.0,FSM,FSM,Oceania,"Micronesia, Fed. Sts.","Micronesia, Fed. Sts. (FSM)"
+990.0,WSM,WSM,Oceania,Samoa,Samoa (WSM)
