@@ -18,8 +18,6 @@ def _get_client():
     if _client is None:
         if not _api_key:
             return None
-        # Using the older SDK pattern to match the user's environment if needed, 
-        # but let's assume the current SDK works.
         _client = genai.GenerativeModel
         genai.configure(api_key=_api_key)
     return _client
@@ -29,6 +27,7 @@ MODELS = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"]
 
 def _generate_with_fallback(prompt: str) -> str:
     """Attempts generation with a priority list of models if errors occur."""
+    _get_client() # Ensure config is run
     if not _api_key:
         return "_API key not configured. Add GEMINI_API_KEY to your .env file._"
     
@@ -46,7 +45,7 @@ def _generate_with_fallback(prompt: str) -> str:
 
 def generate_comparison_report(country_a: str, country_b: str, stats_a: dict, stats_b: dict) -> str:
     """Generates an editorial-style comparative analysis between two countries."""
-    prompt = f\"\"\"You are a senior research analyst for a global religion and sociology think tank.
+    prompt = f"""You are a senior research analyst for a global religion and sociology think tank.
 Write a high-end, editorial-style comparative analysis (250 words max) between {country_a} and {country_b} based strictly on the following data.
 Do NOT invent numbers. Use only the statistics provided.
 
@@ -64,12 +63,12 @@ Do NOT invent numbers. Use only the statistics provided.
 
 Write in a structured, architectural tone. Highlight structural similarities and divergences.
 How do their different historical peaks influence their current religious composition?
-End with one sentence on what this contrast reveals about global religious trends.\"\"\"
+End with one sentence on what this contrast reveals about global religious trends."""
     return _generate_with_fallback(prompt)
 
 def generate_impact_analysis(country: str, year_start: int, year_end: int, stats: dict) -> str:
-    \"\"\"Generates a socioeconomic impact analysis for a single country's religious shifts.\"\"\"
-    prompt = f\"\"\"You are an interdisciplinary research analyst combining sociology, economics, and religious studies.
+    """Generates a socioeconomic impact analysis for a single country's religious shifts."""
+    prompt = f"""You are an interdisciplinary research analyst combining sociology, economics, and religious studies.
 
 Analyse how the structural religious shifts in {country} between {year_start} and {year_end} may correlate with socioeconomic outcomes.
 Use the data below as your factual anchor. Do NOT invent specific statistics for unemployment or crime — instead, reason from historical knowledge of how religious demographic shifts have correlated with these indicators globally and in this specific country.
@@ -88,12 +87,12 @@ Write a structured analytical report (300 words max) with these sections:
 4. **Inflation & Economic Cycles** — how religiosity influenced saving behaviour, consumption, or institutional trust.
 5. **Key Takeaway** — one sentence synthesis.
 
-Be analytical, not ideological. Acknowledge where correlation does not imply causation.\"\"\"
+Be analytical, not ideological. Acknowledge where correlation does not imply causation."""
     return _generate_with_fallback(prompt)
 
 def generate_comparative_impact_analysis(country_a: str, country_b: str, year_start: int, year_end: int, stats_a: dict, stats_b: dict) -> str:
-    \"\"\"Generates a comparative socioeconomic impact report between two countries.\"\"\"
-    prompt = f\"\"\"You are a senior interdisciplinary analyst comparing {country_a} and {country_b}.
+    """Generates a comparative socioeconomic impact report between two countries."""
+    prompt = f"""You are a senior interdisciplinary analyst comparing {country_a} and {country_b}.
 
 Provide a comparative socioeconomic analysis (350 words max) based on their religious shifts between {year_start} and {year_end}.
 Contrast how their different religious trajectories (secularization, growth of specific faiths) correlate with their divergent or similar economic paths.
@@ -114,11 +113,11 @@ Focus on:
 3. **Social Cohesion** — compare the crime and cohesion metrics based on religious shifts.
 4. **Synthesis** — final takeaway on the 'Religion-Economy' nexus in these two contexts.
 
-Be objective and architectural in tone.\"\"\"
+Be objective and architectural in tone."""
     return _generate_with_fallback(prompt)
 
 def extract_country_stats(df_pandas, country: str) -> dict:
-    \"\"\"Extracts key stats for a given country from the filtered DataFrame.\"\"\"
+    """Extracts key stats for a given country from the filtered DataFrame."""
     country_df = df_pandas[df_pandas['country_name'] == country]
     if country_df.empty:
         return {}
