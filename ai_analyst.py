@@ -3,13 +3,20 @@ from google import genai
 import polars as pl
 from openai import OpenAI
 
-# Native .env parser to avoid external dependencies
+# Native .env parser - Hardened against malformed lines
 if os.path.exists(".env"):
-    with open(".env", "r") as _f:
-        for _line in _f:
-            if '=' in _line and not _line.strip().startswith('#'):
-                _k, _v = _line.strip().split('=', 1)
-                os.environ.setdefault(_k.strip(), _v.strip())
+    try:
+        with open(".env", "r") as _f:
+            for _line in _f:
+                _line = _line.strip()
+                if '=' in _line and not _line.startswith('#'):
+                    try:
+                        _k, _v = _line.split('=', 1)
+                        os.environ.setdefault(_k.strip(), _v.strip())
+                    except ValueError:
+                        continue
+    except Exception:
+        pass
 
 _api_key = os.getenv("GEMINI_API_KEY")
 _groq_key = os.getenv("GROQ_API_KEY")
@@ -20,7 +27,10 @@ def _get_client():
     if _client is None:
         if not _api_key:
             return None
-        _client = genai.Client(api_key=_api_key)
+        try:
+            _client = genai.Client(api_key=_api_key)
+        except Exception:
+            return None
     return _client
 
 # Priority list for Gemini models
@@ -36,7 +46,8 @@ def _generate_with_fallback(prompt: str) -> str:
         for model_id in GEMINI_MODELS:
             try:
                 response = client.models.generate_content(model=model_id, contents=prompt)
-                return response.text
+                if response and hasattr(response, 'text'):
+                    return response.text
             except Exception as e:
                 last_error = e
                 continue
@@ -57,7 +68,7 @@ def _generate_with_fallback(prompt: str) -> str:
             last_error = f"Gemini failed, and Groq failed: {e}"
             
     if not _api_key and not _groq_key:
-        return "_No API keys configured. Please add GEMINI_API_KEY or GROQ_API_KEY to your .env file._"
+        return "_No API keys configured. Please add GEMINI_API_KEY or GROQ_API_KEY to your settings._"
         
     return f"_All AI providers failed. Last error: {last_error}_"
 
