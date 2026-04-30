@@ -1,5 +1,6 @@
 import streamlit as st
 import data_manager
+import ai_analyst
 import plotly.express as px
 import plotly.graph_objects as go
 import polars as pl
@@ -153,6 +154,40 @@ with c_main:
                               title=f"{country_a} (Solid) vs {country_b} (Dashed)")
         fig_compare.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", height=500)
         st.plotly_chart(fig_compare, use_container_width=True)
+
+        # AI Comparison Report (Structural)
+        st.markdown("<hr style='border-color:#333'>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI STRUCTURAL ANALYSIS</p>", unsafe_allow_html=True)
+        with st.spinner("Generating comparative analysis…"):
+            stats_a = ai_analyst.extract_country_stats(compare_data, country_a)
+            stats_b = ai_analyst.extract_country_stats(compare_data, country_b)
+            report = ai_analyst.generate_comparison_report(country_a, country_b, stats_a, stats_b)
+        st.markdown(f"""
+        <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
+        {report}
+        </div>""", unsafe_allow_html=True)
+
+        # AI Comparative Impact Button
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button(f"↗ ANALYSE SOCIOECONOMIC CONTRAST", use_container_width=True):
+            # Use 1990-2026 as default for impact analysis
+            analysis_start = year_range[0]
+            analysis_end = year_range[1]
+            if analysis_start == 1816 and analysis_end == 2026:
+                analysis_start = 1990
+
+            with st.spinner(f"Comparing socioeconomic impacts for {country_a} vs {country_b}…"):
+                data_a = compare_data[(compare_data['year'] >= analysis_start) & (compare_data['year'] <= analysis_end)]
+                stats_a = ai_analyst.extract_country_stats(data_a, country_a)
+                stats_b = ai_analyst.extract_country_stats(data_a, country_b)
+                comp_impact = ai_analyst.generate_comparative_impact_analysis(country_a, country_b, analysis_start, analysis_end, stats_a, stats_b)
+            
+            st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI COMPARATIVE SOCIOECONOMIC IMPACT</p>", unsafe_allow_html=True)
+            st.markdown(f"""
+            <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
+            {comp_impact}
+            </div>""", unsafe_allow_html=True)
+
     else:
         st.subheader("EVOLUTIONARY TRAJECTORY")
         timeline_data = filtered_df.to_pandas()
@@ -169,6 +204,37 @@ with c_main:
             
         fig_timeline.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", height=500, yaxis_range=[0, 100])
         st.plotly_chart(fig_timeline, use_container_width=True)
+
+        # AI Impact Analysis Button
+        st.markdown("<hr style='border-color:#333'>", unsafe_allow_html=True)
+        
+        # Logic for single country vs multiple countries
+        num_selected = len(selected_countries)
+        if num_selected == 0:
+            st.info("Select a country in the sidebar to run an impact analysis.")
+        elif num_selected > 1:
+            st.warning("⚠️ Impact analysis is optimized for single-country studies. Please select only one country or enable 'Comparison Mode' in the sidebar.")
+            st.button("↗ ANALYSE IMPACT", disabled=True, use_container_width=True)
+        else:
+            target_country = selected_countries[0]
+            if st.button(f"↗ ANALYSE IMPACT FOR {target_country.upper()}", use_container_width=True):
+                # Use 1990-2026 as default for analysis
+                analysis_start = year_range[0]
+                analysis_end = year_range[1]
+                if analysis_start == 1816 and analysis_end == 2026:
+                    analysis_start = 1990
+                    st.info(f"Note: Using the 1990–2026 window for more accurate socioeconomic analysis.")
+
+                with st.spinner(f"Analysing socioeconomic impact for {target_country}…"):
+                    analysis_data = timeline_data[(timeline_data['year'] >= analysis_start) & (timeline_data['year'] <= analysis_end)]
+                    stats = ai_analyst.extract_country_stats(analysis_data, target_country)
+                    impact = ai_analyst.generate_impact_analysis(target_country, analysis_start, analysis_end, stats)
+                    
+                st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI SOCIOECONOMIC IMPACT ANALYSIS</p>", unsafe_allow_html=True)
+                st.markdown(f"""
+                <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
+                {impact}
+                </div>""", unsafe_allow_html=True)
 
 with c_side:
     st.subheader("Insights")
