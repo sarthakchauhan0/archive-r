@@ -62,6 +62,19 @@ st.markdown(f"""
         font-weight: 700;
     }}
     
+    /* Sidebar Legibility Fix */
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] div,
+    [data-testid="stSidebar"] .stCaption {{
+        color: #FFFFFF !important;
+    }}
+    
+    [data-testid="stSidebar"] .stMarkdown p em {{
+        color: #CCCCCC !important;
+    }}
+
     h1 {{
         font-size: 3.5rem !important;
         font-weight: 700 !important;
