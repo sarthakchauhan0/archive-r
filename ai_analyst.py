@@ -1,10 +1,10 @@
 import os
-from google import genai
+import google.generativeai as genai
+import polars as pl
 
-# Manually load .env without requiring python-dotenv
-_env_path = os.path.join(os.path.dirname(__file__), '.env')
-if os.path.exists(_env_path):
-    with open(_env_path) as _f:
+# Native .env parser to avoid external dependencies
+if os.path.exists(".env"):
+    with open(".env", "r") as _f:
         for _line in _f:
             if '=' in _line and not _line.strip().startswith('#'):
                 _k, _v = _line.strip().split('=', 1)
@@ -18,18 +18,35 @@ def _get_client():
     if _client is None:
         if not _api_key:
             return None
-        _client = genai.Client(api_key=_api_key)
+        # Using the older SDK pattern to match the user's environment if needed, 
+        # but let's assume the current SDK works.
+        _client = genai.GenerativeModel
+        genai.configure(api_key=_api_key)
     return _client
 
-MODEL = "gemini-1.5-flash"
+# Priority list for models (Fallback chain)
+MODELS = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"]
+
+def _generate_with_fallback(prompt: str) -> str:
+    """Attempts generation with a priority list of models if errors occur."""
+    if not _api_key:
+        return "_API key not configured. Add GEMINI_API_KEY to your .env file._"
+    
+    last_error = None
+    for model_id in MODELS:
+        try:
+            model = genai.GenerativeModel(model_id)
+            response = model.generate_content(prompt)
+            return response.text
+        except Exception as e:
+            last_error = e
+            continue
+            
+    return f"_All AI models failed. Last error: {last_error}_"
 
 def generate_comparison_report(country_a: str, country_b: str, stats_a: dict, stats_b: dict) -> str:
     """Generates an editorial-style comparative analysis between two countries."""
-    client = _get_client()
-    if client is None:
-        return "_API key not configured. Add GEMINI_API_KEY to your .env file._"
-
-    prompt = f"""You are a senior research analyst for a global religion and sociology think tank.
+    prompt = f\"\"\"You are a senior research analyst for a global religion and sociology think tank.
 Write a high-end, editorial-style comparative analysis (250 words max) between {country_a} and {country_b} based strictly on the following data.
 Do NOT invent numbers. Use only the statistics provided.
 
@@ -47,22 +64,12 @@ Do NOT invent numbers. Use only the statistics provided.
 
 Write in a structured, architectural tone. Highlight structural similarities and divergences.
 How do their different historical peaks influence their current religious composition?
-End with one sentence on what this contrast reveals about global religious trends."""
-
-    try:
-        response = client.models.generate_content(model=MODEL, contents=prompt)
-        return response.text
-    except Exception as e:
-        return f"_Analysis failed: {e}_"
-
+End with one sentence on what this contrast reveals about global religious trends.\"\"\"
+    return _generate_with_fallback(prompt)
 
 def generate_impact_analysis(country: str, year_start: int, year_end: int, stats: dict) -> str:
-    """Generates a socioeconomic impact analysis for a single country's religious shifts."""
-    client = _get_client()
-    if client is None:
-        return "_API key not configured. Add GEMINI_API_KEY to your .env file._"
-
-    prompt = f"""You are an interdisciplinary research analyst combining sociology, economics, and religious studies.
+    \"\"\"Generates a socioeconomic impact analysis for a single country's religious shifts.\"\"\"
+    prompt = f\"\"\"You are an interdisciplinary research analyst combining sociology, economics, and religious studies.
 
 Analyse how the structural religious shifts in {country} between {year_start} and {year_end} may correlate with socioeconomic outcomes.
 Use the data below as your factual anchor. Do NOT invent specific statistics for unemployment or crime — instead, reason from historical knowledge of how religious demographic shifts have correlated with these indicators globally and in this specific country.
@@ -81,22 +88,12 @@ Write a structured analytical report (300 words max) with these sections:
 4. **Inflation & Economic Cycles** — how religiosity influenced saving behaviour, consumption, or institutional trust.
 5. **Key Takeaway** — one sentence synthesis.
 
-Be analytical, not ideological. Acknowledge where correlation does not imply causation."""
-
-    try:
-        response = client.models.generate_content(model=MODEL, contents=prompt)
-        return response.text
-    except Exception as e:
-        return f"_Analysis failed: {e}_"
-
+Be analytical, not ideological. Acknowledge where correlation does not imply causation.\"\"\"
+    return _generate_with_fallback(prompt)
 
 def generate_comparative_impact_analysis(country_a: str, country_b: str, year_start: int, year_end: int, stats_a: dict, stats_b: dict) -> str:
-    """Generates a comparative socioeconomic impact report between two countries."""
-    client = _get_client()
-    if client is None:
-        return "_API key not configured._"
-
-    prompt = f"""You are a senior interdisciplinary analyst comparing {country_a} and {country_b}.
+    \"\"\"Generates a comparative socioeconomic impact report between two countries.\"\"\"
+    prompt = f\"\"\"You are a senior interdisciplinary analyst comparing {country_a} and {country_b}.
 
 Provide a comparative socioeconomic analysis (350 words max) based on their religious shifts between {year_start} and {year_end}.
 Contrast how their different religious trajectories (secularization, growth of specific faiths) correlate with their divergent or similar economic paths.
@@ -117,17 +114,11 @@ Focus on:
 3. **Social Cohesion** — compare the crime and cohesion metrics based on religious shifts.
 4. **Synthesis** — final takeaway on the 'Religion-Economy' nexus in these two contexts.
 
-Be objective and architectural in tone."""
-
-    try:
-        response = client.models.generate_content(model=MODEL, contents=prompt)
-        return response.text
-    except Exception as e:
-        return f"_Analysis failed: {e}_"
-
+Be objective and architectural in tone.\"\"\"
+    return _generate_with_fallback(prompt)
 
 def extract_country_stats(df_pandas, country: str) -> dict:
-    """Extracts key stats for a given country from the filtered DataFrame."""
+    \"\"\"Extracts key stats for a given country from the filtered DataFrame.\"\"\"
     country_df = df_pandas[df_pandas['country_name'] == country]
     if country_df.empty:
         return {}
@@ -152,14 +143,8 @@ def extract_country_stats(df_pandas, country: str) -> dict:
 
     country_df = country_df.copy()
     country_df['decade'] = (country_df['year'] // 10) * 10
-    
-    # Peak shift: decade with highest average annual volatility
-    # We calculate the sum of absolute changes in percentages across all religions per year
-    country_df = country_df.sort_values(['religion_name', 'year'])
-    country_df['diff'] = country_df.groupby('religion_name')['percentage'].diff().abs()
-    annual_volatility = country_df.groupby('year')['diff'].sum()
-    peak_shift_year = annual_volatility.idxmax() if not annual_volatility.empty else 'N/A'
-    peak_shift_decade = (peak_shift_year // 10) * 10 if peak_shift_year != 'N/A' else 'N/A'
+    volatility = country_df.groupby('decade')['percentage'].std().fillna(0)
+    peak_decade = int(volatility.idxmax()) if not volatility.empty else 'N/A'
 
     return {
         'dominant_religion': dominant,
@@ -168,5 +153,5 @@ def extract_country_stats(df_pandas, country: str) -> dict:
         'fastest_declining': fastest_declining,
         'fastest_declining_delta': fastest_declining_delta,
         'unaffiliated_latest': unaffiliated_latest,
-        'peak_shift_decade': peak_shift_decade,
+        'peak_shift_decade': peak_decade
     }
