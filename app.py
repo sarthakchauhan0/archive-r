@@ -255,7 +255,19 @@ with c_side:
     </div>
     """, unsafe_allow_html=True)
     if not growth_df.is_empty():
-        st.dataframe(growth_df.to_pandas().drop("ccode", axis=1), use_container_width=True, hide_index=True)
+        st.dataframe(
+            growth_df.to_pandas().drop("ccode", axis=1), 
+            use_container_width=True, 
+            hide_index=True,
+            column_config={
+                "religion_name": "Religion",
+                "total_growth": st.column_config.NumberColumn(
+                    "Growth (pp)",
+                    help="Total percentage point change over the selected period",
+                    format="%.1f%%"
+                )
+            }
+        )
 
 # 7. Animated Map (Lower Grid)
 st.markdown("---")
