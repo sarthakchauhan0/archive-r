@@ -165,8 +165,7 @@ with st.sidebar:
                                           options=available_display_names,
                                           key='selected_displays')
         selected_countries = [display_to_code[d] for d in selected_displays]
-    
-    year_range = st.slider("Timeline", 1900, 2026, (1900, 2026))
+    year_range = st.slider("Timeline", 1900, 2026, (1990, 2026))
 
     st.markdown("---")
     st.caption("⚠️ **Data Disclaimer**: Global religious demographics for years post-2010 may be incomplete or modeled, as national census updates often take 10+ years to fully aggregate and verify.")
