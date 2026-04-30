@@ -1,6 +1,7 @@
 import os
 from google import genai
 import polars as pl
+from openai import OpenAI
 
 # Native .env parser to avoid external dependencies
 if os.path.exists(".env"):
@@ -11,6 +12,7 @@ if os.path.exists(".env"):
                 os.environ.setdefault(_k.strip(), _v.strip())
 
 _api_key = os.getenv("GEMINI_API_KEY")
+_groq_key = os.getenv("GROQ_API_KEY")
 _client = None
 
 def _get_client():
@@ -18,30 +20,46 @@ def _get_client():
     if _client is None:
         if not _api_key:
             return None
-        # Using the newer google-genai SDK as specified in requirements.txt
         _client = genai.Client(api_key=_api_key)
     return _client
 
-# Priority list for models (Fallback chain)
-# Standardizing on stable models available in the newer SDK
-MODELS = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]
+# Priority list for Gemini models
+GEMINI_MODELS = ["gemini-2.0-flash", "gemini-1.5-flash"]
 
 def _generate_with_fallback(prompt: str) -> str:
-    """Attempts generation with a priority list of models if errors occur."""
+    """Attempts generation with Gemini models first, then falls back to Groq."""
     client = _get_client()
-    if client is None:
-        return "_API key not configured. Add GEMINI_API_KEY to your .env file._"
-    
     last_error = None
-    for model_id in MODELS:
+    
+    # 1. Try Gemini Models
+    if client:
+        for model_id in GEMINI_MODELS:
+            try:
+                response = client.models.generate_content(model=model_id, contents=prompt)
+                return response.text
+            except Exception as e:
+                last_error = e
+                continue
+    
+    # 2. Try Groq Fallback (as requested by user)
+    if _groq_key:
         try:
-            response = client.models.generate_content(model=model_id, contents=prompt)
-            return response.text
+            groq_client = OpenAI(
+                api_key=_groq_key,
+                base_url="https://api.groq.com/openai/v1",
+            )
+            completion = groq_client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return completion.choices[0].message.content
         except Exception as e:
-            last_error = e
-            continue
+            last_error = f"Gemini failed, and Groq failed: {e}"
             
-    return f"_All AI models failed. Last error: {last_error}_"
+    if not _api_key and not _groq_key:
+        return "_No API keys configured. Please add GEMINI_API_KEY or GROQ_API_KEY to your .env file._"
+        
+    return f"_All AI providers failed. Last error: {last_error}_"
 
 def generate_comparison_report(country_a: str, country_b: str, stats_a: dict, stats_b: dict) -> str:
     """Generates an editorial-style comparative analysis between two countries."""
