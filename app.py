@@ -155,38 +155,47 @@ with c_main:
         fig_compare.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", height=500)
         st.plotly_chart(fig_compare, use_container_width=True)
 
-        # AI Comparison Report (Structural)
+        # AI Comparison Tools
         st.markdown("<hr style='border-color:#333'>", unsafe_allow_html=True)
-        st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI STRUCTURAL ANALYSIS</p>", unsafe_allow_html=True)
-        with st.spinner("Generating comparative analysis…"):
-            stats_a = ai_analyst.extract_country_stats(compare_data, country_a)
-            stats_b = ai_analyst.extract_country_stats(compare_data, country_b)
-            report = ai_analyst.generate_comparison_report(country_a, country_b, stats_a, stats_b)
-        st.markdown(f"""
-        <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
-        {report}
-        </div>""", unsafe_allow_html=True)
+        
+        # Safety check: Compare mode works best with exactly two countries
+        num_selected = len(selected_countries)
+        if num_selected != 2:
+            st.warning("⚠️ Comparison analysis requires exactly two countries to be selected in the sidebar.")
+            st.button("↗ ANALYSE COMPARISON", disabled=True, use_container_width=True)
+        else:
+            c1, c2 = st.columns(2)
+            with c1:
+                if st.button(f"↗ STRUCTURAL ANALYSIS", use_container_width=True):
+                    st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI STRUCTURAL COMPARISON</p>", unsafe_allow_html=True)
+                    with st.spinner("Generating comparative analysis…"):
+                        stats_a = ai_analyst.extract_country_stats(compare_data, country_a)
+                        stats_b = ai_analyst.extract_country_stats(compare_data, country_b)
+                        report = ai_analyst.generate_comparison_report(country_a, country_b, stats_a, stats_b)
+                    st.markdown(f"""
+                    <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
+                    {report}
+                    </div>""", unsafe_allow_html=True)
 
-        # AI Comparative Impact Button
-        st.markdown("<br>", unsafe_allow_html=True)
-        if st.button(f"↗ ANALYSE SOCIOECONOMIC CONTRAST", use_container_width=True):
-            # Use 1990-2026 as default for impact analysis
-            analysis_start = year_range[0]
-            analysis_end = year_range[1]
-            if analysis_start == 1816 and analysis_end == 2026:
-                analysis_start = 1990
+            with c2:
+                if st.button(f"↗ SOCIOECONOMIC CONTRAST", use_container_width=True):
+                    # Use 1990-2026 as default for impact analysis
+                    analysis_start = year_range[0]
+                    analysis_end = year_range[1]
+                    if analysis_start == 1816 and analysis_end == 2026:
+                        analysis_start = 1990
 
-            with st.spinner(f"Comparing socioeconomic impacts for {country_a} vs {country_b}…"):
-                data_a = compare_data[(compare_data['year'] >= analysis_start) & (compare_data['year'] <= analysis_end)]
-                stats_a = ai_analyst.extract_country_stats(data_a, country_a)
-                stats_b = ai_analyst.extract_country_stats(data_a, country_b)
-                comp_impact = ai_analyst.generate_comparative_impact_analysis(country_a, country_b, analysis_start, analysis_end, stats_a, stats_b)
-            
-            st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI COMPARATIVE SOCIOECONOMIC IMPACT</p>", unsafe_allow_html=True)
-            st.markdown(f"""
-            <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
-            {comp_impact}
-            </div>""", unsafe_allow_html=True)
+                    with st.spinner(f"Comparing socioeconomic impacts for {country_a} vs {country_b}…"):
+                        data_a = compare_data[(compare_data['year'] >= analysis_start) & (compare_data['year'] <= analysis_end)]
+                        stats_a = ai_analyst.extract_country_stats(data_a, country_a)
+                        stats_b = ai_analyst.extract_country_stats(data_a, country_b)
+                        comp_impact = ai_analyst.generate_comparative_impact_analysis(country_a, country_b, analysis_start, analysis_end, stats_a, stats_b)
+                    
+                    st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI COMPARATIVE SOCIOECONOMIC IMPACT</p>", unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div style='background:#1e1e1f;border:1px solid #333;border-radius:4px;padding:20px 24px;font-size:0.95rem;line-height:1.75;color:#ccc;'>
+                    {comp_impact}
+                    </div>""", unsafe_allow_html=True)
 
     else:
         st.subheader("EVOLUTIONARY TRAJECTORY")
