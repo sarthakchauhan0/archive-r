@@ -29,7 +29,7 @@ def load_and_optimize_data(file_path, metadata_path='country_metadata.csv'):
     else:
         # Fallback if metadata missing
         df = df.with_columns([
-            pl.lit("Other").alias("region"),
+            pl.col("ccode").replace(REGION_MAP, default="Others").alias("region"),
             pl.lit("UNK").alias("iso_alpha")
         ])
     

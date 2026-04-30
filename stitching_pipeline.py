@@ -2,7 +2,6 @@ import pandas as pd
 import polars as pl
 import numpy as np
 import os
-import country_converter as coco
 
 def load_cow_data(file_path):
     """Loads and harmonizes CoW WRP data."""
@@ -127,12 +126,24 @@ def main():
     
     # 6. Generate Metadata Crosswalk
     print("Generating dynamic country metadata...")
-    cc = coco.CountryConverter()
+    # COW to ISO3 to Region mapping for common states
+    # This acts as the source of truth for the dashboard
+    cow_crosswalk = {
+        2: ('USA', 'Americas'), 20: ('CAN', 'Americas'), 70: ('MEX', 'Americas'),
+        140: ('BRA', 'Americas'), 160: ('ARG', 'Americas'),
+        200: ('GBR', 'Europe'), 210: ('NLD', 'Europe'), 220: ('FRA', 'Europe'),
+        230: ('ESP', 'Europe'), 255: ('DEU', 'Europe'), 325: ('ITA', 'Europe'),
+        365: ('RUS', 'Europe'), 390: ('DNK', 'Europe'),
+        432: ('MLI', 'Africa'), 510: ('TZA', 'Africa'), 530: ('ETH', 'Africa'),
+        630: ('IRN', 'Middle East'), 640: ('TUR', 'Middle East'), 666: ('ISR', 'Middle East'),
+        700: ('AFG', 'Asia'), 710: ('CHN', 'Asia'), 731: ('PRK', 'Asia'), 
+        732: ('KOR', 'Asia'), 740: ('JPN', 'Asia'), 750: ('IND', 'Asia'), 
+        770: ('PAK', 'Asia'), 800: ('THA', 'Asia'), 816: ('VNM', 'Asia'), 900: ('AUS', 'Asia')
+    }
     
     metadata = df_final[['ccode', 'country_name']].drop_duplicates()
-    ccodes_int = [int(x) for x in metadata['ccode'].tolist()]
-    metadata['iso_alpha'] = cc.convert(names=ccodes_int, src='GWcode', to='ISO3')
-    metadata['region'] = cc.convert(names=ccodes_int, src='GWcode', to='continent')
+    metadata['iso_alpha'] = metadata['ccode'].map(lambda x: cow_crosswalk.get(int(x), ('UNK', 'Others'))[0])
+    metadata['region'] = metadata['ccode'].map(lambda x: cow_crosswalk.get(int(x), ('UNK', 'Others'))[1])
     
     metadata.to_csv('country_metadata.csv', index=False)
     

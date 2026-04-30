@@ -46,14 +46,14 @@ ccode,country_name,iso_alpha,region
 230.0,SPN,ESP,Europe
 232.0,AND,AND,Europe
 235.0,POR,PRT,Europe
-255.0,GMY,not found,not found
+255.0,GMY,not found,Others
 260.0,GFR,DEU,Europe
-265.0,GDR,not found,not found
+265.0,GDR,not found,Others
 290.0,POL,POL,Europe
 305.0,AUS,AUT,Europe
 310.0,HUN,HUN,Europe
 315.0,CZE,CZE,Europe
-316.0,CZR,not found,not found
+316.0,CZR,not found,Others
 317.0,SLO,SVK,Europe
 325.0,ITA,ITA,Europe
 331.0,SNM,SMR,Europe
@@ -62,7 +62,7 @@ ccode,country_name,iso_alpha,region
 341.0,MNG,MNE,Europe
 343.0,MAC,MKD,Europe
 344.0,CRO,HRV,Europe
-345.0,YUG,not found,not found
+345.0,YUG,not found,Others
 346.0,BOS,BIH,Europe
 347.0,KOS,XKX,Europe
 349.0,SLV,SVN,Europe
@@ -146,8 +146,8 @@ ccode,country_name,iso_alpha,region
 663.0,JOR,JOR,Asia
 666.0,ISR,ISR,Asia
 670.0,SAU,SAU,Asia
-678.0,YAR,not found,not found
-679.0,YEM,not found,not found
+678.0,YAR,not found,Others
+679.0,YEM,not found,Others
 680.0,YPR,YEM,Asia
 690.0,KUW,KWT,Asia
 692.0,BAH,BHR,Asia
@@ -177,7 +177,7 @@ ccode,country_name,iso_alpha,region
 800.0,THI,THA,Asia
 811.0,CAM,KHM,Asia
 812.0,LAO,LAO,Asia
-816.0,DRV,not found,not found
+816.0,DRV,not found,Others
 817.0,RVN,VNM,Asia
 820.0,MAL,MYS,Asia
 830.0,SIN,SGP,Asia
@@ -190,10 +190,10 @@ ccode,country_name,iso_alpha,region
 920.0,NEW,NZL,Oceania
 935.0,VAN,VUT,Oceania
 940.0,SOL,SLB,Oceania
-946.0,KIR,not found,not found
-947.0,TUV,not found,not found
+946.0,KIR,not found,Others
+947.0,TUV,not found,Others
 950.0,FIJ,FJI,Oceania
-955.0,TON,not found,not found
+955.0,TON,not found,Others
 970.0,NAU,KIR,Oceania
 983.0,MSI,MHL,Oceania
 986.0,PAL,PLW,Oceania

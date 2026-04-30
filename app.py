@@ -186,8 +186,13 @@ with c_side:
 st.markdown("---")
 st.subheader("Spatial Migration of Belief")
 
-# Map uses the filtered_df which respects the 'Focus Countries' selection
-map_data = filtered_df.filter(pl.col("iso_alpha").is_not_null() & (pl.col("iso_alpha") != "not found") & (pl.col("iso_alpha") != "UNK")).to_pandas()
+# Map respects the selected countries/regions, but falls back to global if no ISO-mappable countries exist
+map_data = filtered_df.filter(pl.col("iso_alpha").is_not_null() & (pl.col("iso_alpha") != "UNK")).to_pandas()
+
+if map_data.empty:
+    # Fallback: show the full global map when the selection has no mappable ISO codes
+    st.caption("⚠️ The selected region/countries have no mappable ISO codes — showing global view instead.")
+    map_data = df_master.filter(pl.col("iso_alpha").is_not_null() & (pl.col("iso_alpha") != "UNK")).to_pandas()
 
 map_data['decade'] = (map_data['year'] // 10) * 10
 map_decade = map_data.groupby(['iso_alpha', 'decade', 'religion_name'])['percentage'].mean().reset_index()
