@@ -312,12 +312,16 @@ with c_side:
     Observe how the desaturated Sage (Christianity) and Steel Blue (Islam) interact in the Global South.
     </div>
     """, unsafe_allow_html=True)
-    if not growth_df.is_empty():
+    if not growth_df.is_empty() and df_meta is not None:
+        # Join with metadata to get display_name
+        enriched_growth = growth_df.join(df_meta.select(["ccode", "display_name"]), on="ccode")
+        
         st.dataframe(
-            growth_df.to_pandas().drop("ccode", axis=1), 
+            enriched_growth.to_pandas().drop("ccode", axis=1), 
             use_container_width=True, 
             hide_index=True,
             column_config={
+                "display_name": "Country",
                 "religion_name": "Religion",
                 "total_growth": st.column_config.NumberColumn(
                     "Growth (%)",
