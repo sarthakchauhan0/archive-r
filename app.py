@@ -297,11 +297,11 @@ with c_main:
         else:
             target_country = selected_countries[0]
             if st.button(f"↗ ANALYSE IMPACT FOR {target_country.upper()}", use_container_width=True):
-                # Use 1990-2026 as default for analysis
+                # Use 1926-2026 as default for analysis
                 analysis_start = year_range[0]
                 analysis_end = year_range[1]
                 if analysis_start == 1816 and analysis_end == 2026:
-                    analysis_start = 1990
+                    analysis_start = 1926
                     st.info(f"Note: Using the 1990–2026 window for more accurate socioeconomic analysis.")
 
                 with st.spinner(f"Analysing socioeconomic impact for {target_country}…"):
@@ -387,6 +387,11 @@ if map_data.empty:
 map_data['decade'] = (map_data['year'] // 10) * 10
 map_decade = map_data.groupby(['iso_alpha', 'decade', 'religion_name'])['percentage'].mean().reset_index()
 map_decade = map_decade.sort_values('decade')
+
+year_range = st.sidebar.slider("Analysis Window", 
+                                  min_value=1816, 
+                                  max_value=2026, 
+                                  value=(1926, 2026))
 
 fig_map = px.choropleth(map_decade, 
                         locations="iso_alpha", 
