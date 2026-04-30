@@ -166,7 +166,7 @@ with st.sidebar:
                                           key='selected_displays')
         selected_countries = [display_to_code[d] for d in selected_displays]
     
-    year_range = st.slider("Timeline", 1816, 2026, (1926, 2026))
+    year_range = st.slider("Timeline", 1900, 2026, (1900, 2026))
 
     st.markdown("---")
     st.caption("⚠️ **Data Disclaimer**: Global religious demographics for years post-2010 may be incomplete or modeled, as national census updates often take 10+ years to fully aggregate and verify.")
@@ -247,11 +247,9 @@ with c_main:
 
             with c2:
                 if st.button(f"↗ SOCIOECONOMIC CONTRAST", use_container_width=True):
-                    # Use 1990-2026 as default for impact analysis
+                    # Use selected range for impact analysis
                     analysis_start = year_range[0]
                     analysis_end = year_range[1]
-                    if analysis_start == 1816 and analysis_end == 2026:
-                        analysis_start = 1990
 
                     with st.spinner(f"Comparing socioeconomic impacts for {country_a} vs {country_b}…"):
                         data_a = compare_data[(compare_data['year'] >= analysis_start) & (compare_data['year'] <= analysis_end)]
@@ -297,12 +295,9 @@ with c_main:
         else:
             target_country = selected_countries[0]
             if st.button(f"↗ ANALYSE IMPACT FOR {target_country.upper()}", use_container_width=True):
-                # Use 1926-2026 as default for analysis
+                # Use selected range for analysis
                 analysis_start = year_range[0]
                 analysis_end = year_range[1]
-                if analysis_start == 1816 and analysis_end == 2026:
-                    analysis_start = 1926
-                    st.info(f"Note: Using the 1990–2026 window for more accurate socioeconomic analysis.")
 
                 with st.spinner(f"Analysing socioeconomic impact for {target_country}…"):
                     analysis_data = timeline_data[(timeline_data['year'] >= analysis_start) & (timeline_data['year'] <= analysis_end)]
