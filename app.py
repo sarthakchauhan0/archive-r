@@ -119,7 +119,11 @@ with st.sidebar:
     
     # Use session state to persist selections across reruns
     if 'selected_regions' not in st.session_state:
-        st.session_state.selected_regions = df_master["region"].unique().to_list()
+        all_avail_regions = df_master["region"].unique().to_list()
+        target_defaults = ["America", "Europe"]
+        st.session_state.selected_regions = [r for r in target_defaults if r in all_avail_regions]
+        if not st.session_state.selected_regions:
+            st.session_state.selected_regions = all_avail_regions
     
     regions = st.multiselect("Regions", 
                             options=sorted(df_master["region"].unique().to_list()), 
@@ -146,7 +150,9 @@ with st.sidebar:
     else:
         # For multiselect, we need to handle the conversion
         current_codes = df_master.filter(pl.col("region").is_in(regions))["country_name"].unique().to_list()
-        default_codes = [c for c in current_codes if c in ["USA", "IND", "GBR", "FRA", "DEU", "CAN", "AFG"]][:3]
+        # User requested defaults: USA, UK (UKG), France (FRN)
+        default_codes = [c for c in ["USA", "UKG", "FRN"] if c in current_codes]
+        
         if not default_codes:
             default_codes = current_codes[:3]
             
