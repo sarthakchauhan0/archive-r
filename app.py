@@ -187,7 +187,7 @@ st.markdown("---")
 st.subheader("Spatial Migration of Belief")
 
 # Map uses the filtered_df which respects the 'Focus Countries' selection
-map_data = filtered_df.filter(pl.col("iso_alpha").is_not_null() & (pl.col("iso_alpha") != "UNK")).to_pandas()
+map_data = filtered_df.filter(pl.col("iso_alpha").is_not_null() & (pl.col("iso_alpha") != "not found") & (pl.col("iso_alpha") != "UNK")).to_pandas()
 
 map_data['decade'] = (map_data['year'] // 10) * 10
 map_decade = map_data.groupby(['iso_alpha', 'decade', 'religion_name'])['percentage'].mean().reset_index()
