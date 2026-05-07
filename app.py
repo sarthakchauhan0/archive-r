@@ -258,7 +258,7 @@ with c_main:
                 
                 if st.session_state.report_comp_structural:
                     st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI STRUCTURAL COMPARISON</p>", unsafe_allow_html=True)
-                    st.markdown(f<div class='ai-report-card'>{st.session_state.report_comp_structural}</div>, unsafe_allow_html=True)
+                    st.markdown(f"<div class='ai-report-card'>{st.session_state.report_comp_structural}</div>", unsafe_allow_html=True)
 
             with c2:
                 if st.button(f"↗ SOCIOECONOMIC CONTRAST", use_container_width=True):
@@ -274,7 +274,7 @@ with c_main:
                 
                 if st.session_state.report_comp_impact:
                     st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI COMPARATIVE SOCIOECONOMIC IMPACT</p>", unsafe_allow_html=True)
-                    st.markdown(f<div class='ai-report-card'>{st.session_state.report_comp_impact}</div>, unsafe_allow_html=True)
+                    st.markdown(f"<div class='ai-report-card'>{st.session_state.report_comp_impact}</div>", unsafe_allow_html=True)
 
     else:
         st.subheader("EVOLUTIONARY TRAJECTORY")
