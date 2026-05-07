@@ -97,6 +97,12 @@ if df_master is None:
     st.error("Dataset not found.")
     st.stop()
 
+# Initialize AI Report State
+if 'report_single' not in st.session_state: st.session_state.report_single = None
+if 'report_comp_structural' not in st.session_state: st.session_state.report_comp_structural = None
+if 'report_comp_impact' not in st.session_state: st.session_state.report_comp_impact = None
+if 'last_params' not in st.session_state: st.session_state.last_params = None
+
 # 2.5 Load Metadata for UI Display Names
 @st.cache_data
 def load_metadata():
@@ -179,6 +185,14 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
+# Check for parameter changes to clear stale reports
+current_params = f"{selected_countries}-{year_range}"
+if st.session_state.last_params != current_params:
+    st.session_state.report_single = None
+    st.session_state.report_comp_structural = None
+    st.session_state.report_comp_impact = None
+    st.session_state.last_params = current_params
+
 # 4. Filter Logic
 filtered_df = data_manager.get_filtered_data(df_master, regions, selected_countries, year_range)
 metrics_df, growth_df = data_manager.calculate_growth_metrics(filtered_df)
@@ -237,12 +251,14 @@ with c_main:
             c1, c2 = st.columns(2)
             with c1:
                 if st.button(f"↗ STRUCTURAL ANALYSIS", use_container_width=True):
-                    st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI STRUCTURAL COMPARISON</p>", unsafe_allow_html=True)
                     with st.spinner("Generating comparative analysis…"):
                         stats_a = ai_analyst.extract_country_stats(compare_data, country_a)
                         stats_b = ai_analyst.extract_country_stats(compare_data, country_b)
-                        report = ai_analyst.generate_comparison_report(country_a, country_b, stats_a, stats_b)
-                    st.markdown(f"<div class='ai-report-card'>{report}</div>", unsafe_allow_html=True)
+                        st.session_state.report_comp_structural = ai_analyst.generate_comparison_report(country_a, country_b, stats_a, stats_b)
+                
+                if st.session_state.report_comp_structural:
+                    st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI STRUCTURAL COMPARISON</p>", unsafe_allow_html=True)
+                    st.markdown(f<div class='ai-report-card'>{st.session_state.report_comp_structural}</div>, unsafe_allow_html=True)
 
             with c2:
                 if st.button(f"↗ SOCIOECONOMIC CONTRAST", use_container_width=True):
@@ -254,10 +270,11 @@ with c_main:
                         data_a = compare_data[(compare_data['year'] >= analysis_start) & (compare_data['year'] <= analysis_end)]
                         stats_a = ai_analyst.extract_country_stats(data_a, country_a)
                         stats_b = ai_analyst.extract_country_stats(data_a, country_b)
-                        comp_impact = ai_analyst.generate_comparative_impact_analysis(country_a, country_b, analysis_start, analysis_end, stats_a, stats_b)
-                    
+                        st.session_state.report_comp_impact = ai_analyst.generate_comparative_impact_analysis(country_a, country_b, analysis_start, analysis_end, stats_a, stats_b)
+                
+                if st.session_state.report_comp_impact:
                     st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI COMPARATIVE SOCIOECONOMIC IMPACT</p>", unsafe_allow_html=True)
-                    st.markdown(f"<div class='ai-report-card'>{comp_impact}</div>", unsafe_allow_html=True)
+                    st.markdown(f<div class='ai-report-card'>{st.session_state.report_comp_impact}</div>, unsafe_allow_html=True)
 
     else:
         st.subheader("EVOLUTIONARY TRAJECTORY")
@@ -301,10 +318,11 @@ with c_main:
                 with st.spinner(f"Analysing socioeconomic impact for {target_country}…"):
                     analysis_data = timeline_data[(timeline_data['year'] >= analysis_start) & (timeline_data['year'] <= analysis_end)]
                     stats = ai_analyst.extract_country_stats(analysis_data, target_country)
-                    impact = ai_analyst.generate_impact_analysis(target_country, analysis_start, analysis_end, stats)
-                    
+                    st.session_state.report_single = ai_analyst.generate_impact_analysis(target_country, analysis_start, analysis_end, stats)
+            
+            if st.session_state.report_single:
                 st.markdown("<p style='font-size:0.75rem;letter-spacing:0.15em;color:#888;'>AI SOCIOECONOMIC IMPACT ANALYSIS</p>", unsafe_allow_html=True)
-                st.markdown(f"<div class='ai-report-card'>{impact}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='ai-report-card'>{st.session_state.report_single}</div>", unsafe_allow_html=True)
 
 with c_side:
     st.subheader("Insights")
