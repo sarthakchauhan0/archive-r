@@ -392,7 +392,7 @@ fig_map = px.choropleth(map_decade,
                         template="plotly_dark")
 fig_map.update_geos(
     visible=True,
-    resolution=50,
+    resolution=110,
     showcoastlines=True, coastlinecolor="Grey",
     showland=True, landcolor="#1A1A1B",
     showocean=True, oceancolor="#0E1117",
