@@ -116,6 +116,8 @@ Write a structured analytical report (300 words max) with these sections:
 4. **Inflation & Economic Cycles** — how religiosity influenced saving behaviour, consumption, or institutional trust.
 5. **Key Takeaway** — one sentence synthesis.
 
+**IMPORTANT SOCIOLOGICAL GUIDELINE**: When analyzing Europe or the USA, you MUST acknowledge the role of migration and "Hidden Cultural Affiliation." Recognize that rapid growth in 'Unaffiliated' or minority faiths in these regions is often driven by refugee and migrant populations. Note that official census data (like 'Unaffiliated' or 'Other') may mask deep cultural religious roots that still significantly influence social cohesion and economic integration.
+
 Be analytical, not ideological. Acknowledge where correlation does not imply causation."""
     return _generate_with_fallback(prompt)
 
@@ -141,6 +143,8 @@ Focus on:
 2. **Economic Resilience** — which model shows higher correlation with institutional stability or labor flexibility?
 3. **Social Cohesion** — compare the crime and cohesion metrics based on religious shifts.
 4. **Synthesis** — final takeaway on the 'Religion-Economy' nexus in these two contexts.
+
+**IMPORTANT SOCIOLOGICAL GUIDELINE**: You MUST acknowledge how migration patterns (specifically from Islamic nations to Europe/USA) drive these demographic shifts. Recognize the nuance of "Hidden Cultural Affiliation," where 'Unaffiliated' statistics in Western contexts may mask underlying religious cultural dynamics that impact institutional stability and social trust.
 
 Be objective and architectural in tone."""
     return _generate_with_fallback(prompt)
